@@ -4,7 +4,7 @@
   "description": "a library to make use js easier",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch-all"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Alihaitham26/easy-units/issues"
   },
-  "homepage": "https://github.com/Alihaitham26/easy-units#readme"
+  "homepage": "https://github.com/Alihaitham26/easy-units#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.9"
+  },
+  "dependencies": {
+    "jest": "^29.3.1"
+  }
 }
