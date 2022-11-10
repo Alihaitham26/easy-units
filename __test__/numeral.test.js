@@ -19,7 +19,7 @@ describe('check binary functions', () => {
       expect(toBinary(4)).toBe("100")
       expect(toBinary(1021)).toBe("1111111101")
       expect(toBinary(1203)).toBe("10010110011")
-      expect(toBinary(10212031)).toBe("10212031")
+      expect(toBinary(10212031)).toBe("100110111101001010111111")
     })
     
     test('should retrurn float  in binary format after make it int ', () => {
@@ -30,7 +30,7 @@ describe('check binary functions', () => {
       expect(toBinary(4.2)).toBe("100")
       expect(toBinary(1021.234)).toBe("1111111101")
       expect(toBinary(1203.103)).toBe("10010110011")
-      expect(toBinary(10212031.11)).toBe("10212031")
+      expect(toBinary(10212031.11)).toBe("100110111101001010111111")
     })
 
     test('should return flase if the input is not vaild', () => {
