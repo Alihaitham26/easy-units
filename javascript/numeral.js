@@ -17,7 +17,17 @@ function toBinary(decimal = 0) {
     return binary;
 }
 exports.toBinary = toBinary;
-function toOctal(decimal) {
-    return "0";
+function toOctal(decimal = 0) {
+    if (typeof decimal !== "number")
+        return false;
+    if (decimal < 1)
+        return "0";
+    //make the number int
+    decimal = decimal - (decimal % 1);
+    let octal = "";
+    for (let i = decimal; i > 0; i = (i - (i % 8)) / 8) {
+        octal = (i % 8) + octal;
+    }
+    return octal;
 }
 exports.toOctal = toOctal;
