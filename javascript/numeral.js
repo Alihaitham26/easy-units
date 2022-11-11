@@ -1,7 +1,7 @@
 "use strict";
 /* this module will use to convert between numeral system: [binary,octal,decimal,hexadecimal] */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.toOctal = exports.toBinary = void 0;
+exports.toHex = exports.toOctal = exports.toBinary = void 0;
 function toBinary(decimal = 0) {
     //some unusual suits
     if (typeof decimal !== "number")
@@ -31,3 +31,7 @@ function toOctal(decimal = 0) {
     return octal;
 }
 exports.toOctal = toOctal;
+function toHex(decimal = 0) {
+    return "0";
+}
+exports.toHex = toHex;

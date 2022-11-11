@@ -1,4 +1,4 @@
-const {toBinary,toOctal}=require("../javascript/numeral")
+const {toBinary,toOctal, toHex}=require("../javascript/numeral")
 
 
 
@@ -67,7 +67,7 @@ describe('check toOctal', () => {
     expect(toOctal(1023)).toBe("1777")
   })
   
-  test('should retrurn float  in binary format after make it int ', () => {
+  test('should retrurn float  in octal format after make it int ', () => {
     expect(toOctal(0.1)).toBe("0")
     expect(toOctal(1.2)).toBe("1")
     expect(toOctal(2.6)).toBe("2")
@@ -89,6 +89,55 @@ describe('check toOctal', () => {
     expect(toOctal({})).toBe(false)
     expect(toOctal(null)).toBe(false)
     expect(toOctal("hello")).toBe(false)
+  })
+  
+})
+describe('check toHexa', () => {
+
+
+  test('should return 0 as string if there is no input', () => {
+    expect(toHex()).toBe("0")
+  })
+  
+  test('should retrurn number in hex format', () => {
+    expect(toHex(0)).toBe("0")
+    expect(toHex(1)).toBe("1")
+    expect(toHex(2)).toBe("2")
+    expect(toHex(3)).toBe("3")
+    expect(toHex(4)).toBe("4")
+    expect(toHex(8)).toBe("8")
+    expect(toHex(10)).toBe("A")
+    expect(toHex(16)).toBe("10")
+    expect(toHex(1614)).toBe("64E")
+    expect(toHex(114101451)).toBe("6CD0CCB")
+    expect(toHex(1000000)).toBe("F4240")
+  })
+  
+  test('should retrurn float  in binary format after make it int ', () => {
+    expect(toHex(0.5618)).toBe("0")
+    expect(toHex(1.9)).toBe("1")
+    expect(toHex(2.8)).toBe("2")
+    expect(toHex(3.7)).toBe("3")
+    expect(toHex(4.6)).toBe("4")
+    expect(toHex(8.3)).toBe("8")
+    expect(toHex(12.14)).toBe("C")
+    expect(toHex(17.19)).toBe("11")
+    expect(toHex(1614.13)).toBe("64E")
+    expect(toHex(114101451.12)).toBe("6CD0CCB")
+    expect(toHex(1000001.12413)).toBe("F4241")
+  })
+
+  test('should return flase if the input is not vaild', () => {
+    expect(toHex("100")).toBe(false)
+    expect(toHex(true)).toBe(false)
+    expect(toHex(false)).toBe(false)
+    expect(toHex({"ali":"ali"})).toBe(false)
+    expect(toHex([1,2,3])).toBe(false)
+    expect(toHex([0,0,0])).toBe(false)
+    expect(toHex([])).toBe(false)
+    expect(toHex({})).toBe(false)
+    expect(toHex(null)).toBe(false)
+    expect(toHex("hello")).toBe(false)
   })
   
 })

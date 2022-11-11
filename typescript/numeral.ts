@@ -28,5 +28,9 @@ function toOctal(decimal:number=0):string|boolean{
   }
   return octal
 }
+function toHex(decimal:number=0):string|boolean{
+  return "0"
+}
 
-export {toBinary,toOctal}
+
+export {toBinary,toOctal,toHex}
