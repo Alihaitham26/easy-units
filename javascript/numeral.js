@@ -1,8 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.toHex = exports.toOctal = exports.toBinary = void 0;
 /* this module will use to convert between numeral system: [binary,octal,decimal,hexadecimal] */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.fromBinary = exports.toHex = exports.toOctal = exports.toBinary = void 0;
 const hexNums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+/* convert from decimal functions */
 function toBinary(decimal = 0) {
     //some unusual inputs
     if (typeof decimal !== "number")
@@ -51,3 +52,18 @@ function toHex(decimal = 0) {
     return hex;
 }
 exports.toHex = toHex;
+/* convert to decimal function */
+function fromBinary(binary = "0") {
+    // test if input is valid if not return false
+    if (typeof binary !== "string" || !(/^[0,1]+$/.test(binary)))
+        return false;
+    //convert into decimal
+    let decimal = 0;
+    for (let i = binary.length - 1; i >= 0; i--) {
+        decimal += (+binary[i]) * (2 ** (binary.length - i - 1));
+    }
+    return decimal;
+    // Another approach but I will not use it because it loop in the array 2 times
+    // return binary.split("").map(e => +e).reduceRight((pre, cur, i) => pre + ((+cur) * (2 ** (binary.length - i - 1))))
+}
+exports.fromBinary = fromBinary;
