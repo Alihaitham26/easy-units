@@ -15,4 +15,8 @@ function toBinary(decimal:number=0):string|boolean{
   return binary
 }
 
-export {toBinary}
+function toOctal(decimal:number):string|boolean{
+  return "0"
+}
+
+export {toBinary,toOctal}
