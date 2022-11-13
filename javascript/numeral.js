@@ -1,7 +1,7 @@
 "use strict";
 /* this module will use to convert between numeral system: [binary,octal,decimal,hexadecimal] */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fromOctal = exports.fromBinary = exports.toHex = exports.toOctal = exports.toBinary = void 0;
+exports.fromHex = exports.fromOctal = exports.fromBinary = exports.toHex = exports.toOctal = exports.toBinary = void 0;
 const hexNums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
 /* convert from decimal functions */
 function toBinary(decimal = 0) {
@@ -79,3 +79,16 @@ function fromOctal(octal = "0") {
     return decimal;
 }
 exports.fromOctal = fromOctal;
+function fromHex(hex = "0") {
+    if (typeof hex !== "string" || !(/^[0-9|a-f|A-F]+$/.test(hex)))
+        return false;
+    //make it upper case to make it can convert hex with the lower case letters(a|A,f|F)
+    let formatedHex = hex.toUpperCase();
+    //convert into decimal
+    let decimal = 0;
+    for (let i = formatedHex.length - 1; i >= 0; i--) {
+        decimal += hexNums.indexOf(formatedHex[i].toUpperCase()) * (16 ** (formatedHex.length - i - 1));
+    }
+    return decimal;
+}
+exports.fromHex = fromHex;
