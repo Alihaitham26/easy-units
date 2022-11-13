@@ -1,4 +1,5 @@
-const {toBinary,toOctal, toHex,fromBinary,fromOctal,fromHex}=require("../javascript/numeral")
+
+const { hexNums ,toBinary,toOctal, toHex,fromBinary,fromOctal,fromHex,fromBase}=require("../javascript/numeral")
 
 
 
@@ -92,6 +93,7 @@ describe('check toOctal', () => {
   })
   
 })
+
 describe('check toHexa', () => {
 
 
@@ -216,8 +218,7 @@ describe('check fromOctal', () => {
   
 })
 
-
-describe('check fromOctal', () => {
+describe('check fromHex', () => {
   test('should return 0 if there is no input', () => {
     expect(fromHex()).toBe(0)
   })
@@ -255,5 +256,51 @@ describe('check fromOctal', () => {
     expect(fromHex("1R2")).toBe(false)
     expect(fromHex("FFFFFF1FFFO")).toBe(false)
   })
+})
+
+describe('test form base function', () => {
+  test('should return false if the base bigger than 10 and there is no nums or the nums is not valid', () => {
+    expect(fromBase("1F",11)).toBe(false)
+    expect(fromBase("1F",15)).toBe(false)
+    expect(fromBase("1F",13)).toBe(false)
+    expect(fromBase("1F",14,[])).toBe(false)
+    expect(fromBase("1F",20,[1,2,3])).toBe(false)
+    expect(fromBase("1F",15,[0,1,2,3,4,5,6,7,8,9,10])).toBe(false)
+    expect(fromBase("1F",11,[0,1,2,3,4,5,6,7,8,9,10])).toBe(false)
+  })
+  test('should return false if num is invaild', () => {
+    expect(fromBase("18",8)).toBe(false)
+    expect(fromBase("F",8)).toBe(false)
+    expect(fromBase("1221319131313",8)).toBe(false)
+    expect(fromBase("1212F13123",10)).toBe(false)
+    expect(fromBase("1212F13123O",16,hexNums)).toBe(false)
+    expect(fromBase("1212AF13123",11,hexNums)).toBe(false)
+  })
+  test('should return right deciaml if num is vaild', () => {
+    expect(fromBase("0",2)).toBe(0)
+    expect(fromBase("1",2)).toBe(1)
+    expect(fromBase("10",2)).toBe(2)
+    expect(fromBase("10",8)).toBe(8)
+    expect(fromBase("20",8)).toBe(16)
+    expect(fromBase("20",7)).toBe(14)
+    expect(fromBase("20",6)).toBe(12)
+    expect(fromBase("22",6)).toBe(14)
+    
+  })
+  test('should return right decimal with our nums if num and nums is valid', () => {
+    expect(fromBase("10",11,hexNums)).toBe(11)
+    expect(fromBase("A",11,hexNums)).toBe(10)
+    expect(fromBase("F",16,hexNums)).toBe(15)
+    expect(fromBase("101",2)).toBe(5)
+    expect(fromBase("B",2,["A","B"])).toBe(1)
+    let lettersDecimal=["O","A","B","C","D","E","F","G","H","I"]
+    expect(fromBase("A",10,lettersDecimal)).toBe(1)
+    expect(fromBase("AA",10,lettersDecimal)).toBe(11)
+    expect(fromBase("AB",10,lettersDecimal)).toBe(12)
+    expect(fromBase("ABOI",10,lettersDecimal)).toBe(1209)
+    expect(fromBase("EBOE",10,lettersDecimal)).toBe(5205)
+    expect(fromBase("EBCE",10,lettersDecimal)).toBe(5235)
+  })
+  
   
 })

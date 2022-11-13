@@ -95,4 +95,44 @@ function fromHex(hex:string="0"){
   return decimal
 }
 
-export { toBinary, toOctal, toHex, fromBinary ,fromOctal , fromHex}
+function fromBase(num:string="0",base:number=10,nums:string[]){
+  if(typeof num !== "string") return false
+
+  if(nums && nums.length >= base && nums.join("").length === nums.length){
+    //if nums is valid
+
+    //formatting nums if it is taller than the base
+    if (nums.length> base) nums=nums.slice(0,base+1)
+    
+    let regex=new RegExp(`^[${nums.join("")}]+$`)
+    if(regex.test(num)){
+      //number is valid
+      let decimal: number = 0
+      for (let i = num.length - 1; i >= 0; i--) decimal += nums.indexOf(num[i]) * (base ** (num.length - i - 1))
+      return decimal
+    }else{
+      //number is invalid
+      return false
+    }
+    
+  }else{
+    //if nums is invalid
+
+    if(base < 10){
+      let regex=new RegExp(`^[0-${base-1}]+$`)
+      if (!regex.test(num)) return false
+      let decimal: number = 0
+      for (let i = num.length - 1; i >= 0; i--) {
+        decimal += (+num[i]) * (base ** (num.length - i - 1))
+      }
+      return decimal
+    }else if(base === 10 && ((/^[0-9]+$/).test(num))){
+      return num
+    }else{
+      //if num is taller than 10 or his its tall is 10 but not valid as decimal
+      return false
+    }
+  }
+}
+
+export {hexNums, toBinary, toOctal, toHex, fromBinary ,fromOctal , fromHex ,fromBase}
