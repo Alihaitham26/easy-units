@@ -1,4 +1,4 @@
-const {toBinary,toOctal, toHex,fromBinary}=require("../javascript/numeral")
+const {toBinary,toOctal, toHex,fromBinary,fromOctal}=require("../javascript/numeral")
 
 
 
@@ -172,6 +172,46 @@ describe('check fromBinary', () => {
     expect(fromBinary(1000100141400100)).toBe(false)
     expect(fromBinary(100010010051100)).toBe(false)
     expect(fromBinary(100010010100)).toBe(false)
+  })
+  
+})
+
+describe('check fromOctal', () => {
+  test('should return 0 if there is no input', () => {
+    expect(fromOctal()).toBe(0)
+  })
+
+  
+  test('should return decimal if input type is string', () => {
+    expect(fromOctal("0")).toBe(0)
+    expect(fromOctal("1")).toBe(1)
+    expect(fromOctal("3")).toBe(3)
+    expect(fromOctal("6")).toBe(6)
+    expect(fromOctal("7")).toBe(7)
+    expect(fromOctal("10")).toBe(8)
+    expect(fromOctal("1701")).toBe(961)
+    expect(fromOctal("100000")).toBe(32768)
+    expect(fromOctal("7312041")).toBe(1938465)
+    expect(fromOctal("72732650661")).toBe(7909102001)
+  })
+  
+
+  test('should return false if input is invalid', () => {
+    expect(fromOctal({})).toBe(false)
+    expect(fromOctal([])).toBe(false)
+    expect(fromOctal(null)).toBe(false)
+    expect(fromOctal({name:"ali"})).toBe(false)
+    expect(fromOctal([1,4,5])).toBe(false)
+    expect(fromOctal("why you do that")).toBe(false)
+    expect(fromOctal(1313)).toBe(false)
+    expect(fromOctal(4131)).toBe(false)
+    expect(fromOctal(100010041400100)).toBe(false)
+    expect(fromOctal(1000100141400100)).toBe(false)
+    expect(fromOctal(100010010051100)).toBe(false)
+    expect(fromOctal(100010010100)).toBe(false)
+    expect(fromOctal("181")).toBe(false)
+    expect(fromOctal("1F1")).toBe(false)
+    expect(fromOctal("1911")).toBe(false)
   })
   
 })

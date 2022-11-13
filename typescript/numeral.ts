@@ -1,7 +1,5 @@
 /* this module will use to convert between numeral system: [binary,octal,decimal,hexadecimal] */
 
-import { type } from "os"
-
 const hexNums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
 
 
@@ -71,4 +69,16 @@ function fromBinary(binary: string = "0"): number | boolean {
   // return binary.split("").map(e => +e).reduceRight((pre, cur, i) => pre + ((+cur) * (2 ** (binary.length - i - 1))))
 }
 
-export { toBinary, toOctal, toHex, fromBinary }
+function fromOctal(octal:string="0"){
+  // test if input is valid if not return false
+  if (typeof octal !== "string" || !(/^[0-7]+$/.test(octal))) return false
+
+  //convert into decimal
+  let decimal: number = 0
+  for (let i = octal.length - 1; i >= 0; i--) {
+    decimal += (+octal[i]) * (8 ** (octal.length - i - 1))
+  }
+  return decimal
+}
+
+export { toBinary, toOctal, toHex, fromBinary ,fromOctal }
