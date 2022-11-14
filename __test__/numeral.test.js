@@ -145,7 +145,7 @@ describe('check toHexa', () => {
 })
 
 describe('test toBase', () => {
-  test.only('should retutn in the base format if it is valid', () => {
+  test('should retutn in the base format if it is valid', () => {
     expect(toBase(2,2)).toBe("10")
     expect(toBase(4,2)).toBe("100")
     expect(toBase(5,2)).toBe("101")

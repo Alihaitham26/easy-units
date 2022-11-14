@@ -3,9 +3,9 @@
 const hexNums:string[] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
 
 
-
+type strOr=string|false
 /* convert from decimal functions */
-function toBinary(decimal: number = 0): string | boolean {
+function toBinary(decimal: number = 0): strOr {
   //some unusual inputs
   if (typeof decimal !== "number") return false
   if (decimal < 1) return "0"
@@ -21,7 +21,7 @@ function toBinary(decimal: number = 0): string | boolean {
   return binary
 }
 
-function toOctal(decimal: number = 0): string | boolean {
+function toOctal(decimal: number = 0): strOr {
   //some unusual inputs
   if (typeof decimal !== "number") return false
   if (decimal < 1) return "0"
@@ -37,7 +37,7 @@ function toOctal(decimal: number = 0): string | boolean {
   return octal
 }
 
-function toHex(decimal: number = 0): string | boolean {
+function toHex(decimal: number = 0): strOr {
   //some unusual inputs
   if (typeof decimal !== "number") return false
   if (decimal < 1) return "0"
@@ -53,9 +53,9 @@ function toHex(decimal: number = 0): string | boolean {
   return hex
 }
 
-function toBase(decimal:number,base:number,nums?:string[]){
+function toBase(decimal:number,base:number,nums?:string[]|number[]):strOr{
   //validate inputs
-  if(typeof decimal !== "number" ||(nums&&(nums.length<base||nums.join("").length!==nums.length))) return false
+  if(typeof decimal !== "number" ||(nums&&(nums.length<base||nums.join("").length!==nums.length)) || typeof base !== "number") return false
 
   if(nums&&nums.length > base) nums=nums.slice(0,base)
   if(decimal < 1) return "0"
@@ -72,8 +72,8 @@ function toBase(decimal:number,base:number,nums?:string[]){
 }
 
 /* convert to decimal function */
-
-function fromBinary(binary: string = "0"): number | boolean {
+type numOr=number|false
+function fromBinary(binary: string = "0"): numOr {
   // test if input is valid if not return false
   if (typeof binary !== "string" || !(/^[0,1]+$/.test(binary))) return false
   
@@ -88,7 +88,8 @@ function fromBinary(binary: string = "0"): number | boolean {
   // return binary.split("").map(e => +e).reduceRight((pre, cur, i) => pre + ((+cur) * (2 ** (binary.length - i - 1))))
 }
 
-function fromOctal(octal:string="0"){
+
+function fromOctal(octal:string="0"): numOr{
   // test if input is valid if not return false
   if (typeof octal !== "string" || !(/^[0-7]+$/.test(octal))) return false
 
@@ -100,7 +101,7 @@ function fromOctal(octal:string="0"){
   return decimal
 }
 
-function fromHex(hex:string="0"){
+function fromHex(hex:string="0"): numOr{
   if (typeof hex !== "string" || !(/^[0-9|a-f|A-F]+$/.test(hex))) return false
 
   //make it upper case to make it can convert hex with the lower case letters(a|A,f|F)
@@ -114,7 +115,7 @@ function fromHex(hex:string="0"){
   return decimal
 }
 
-function fromBase(num:string="0",base:number=10,nums?:string[]){
+function fromBase(num:string="0",base:number=10,nums?:string[]): numOr{
   if(typeof num !== "string") return false
 
   if(nums && nums.length >= base && nums.join("").length === nums.length){
@@ -146,7 +147,7 @@ function fromBase(num:string="0",base:number=10,nums?:string[]){
       }
       return decimal
     }else if(base === 10 && ((/^[0-9]+$/).test(num))){
-      return num
+      return +num
     }else{
       //if num is taller than 10 or his its tall is 10 but not valid as decimal
       return false

@@ -55,7 +55,7 @@ function toHex(decimal = 0) {
 exports.toHex = toHex;
 function toBase(decimal, base, nums) {
     //validate inputs
-    if (typeof decimal !== "number" || (nums && (nums.length < base || nums.join("").length !== nums.length)))
+    if (typeof decimal !== "number" || (nums && (nums.length < base || nums.join("").length !== nums.length)) || typeof base !== "number")
         return false;
     if (nums && nums.length > base)
         nums = nums.slice(0, base);
@@ -64,21 +64,18 @@ function toBase(decimal, base, nums) {
     //remove fractions
     if (decimal % 1 !== 0)
         decimal = decimal - decimal % 1;
+    let num = "";
     if (nums) {
-        let num = "";
         for (let i = decimal; i > 0; i = (i - (i % base)) / base)
             num = nums[i % base] + num;
-        return num;
     }
     else {
-        let num = "";
         for (let i = decimal; i > 0; i = (i - (i % base)) / base)
             num = (i % base) + num;
-        return num;
     }
+    return num;
 }
 exports.toBase = toBase;
-/* convert to decimal function */
 function fromBinary(binary = "0") {
     // test if input is valid if not return false
     if (typeof binary !== "string" || !(/^[0,1]+$/.test(binary)))
@@ -152,7 +149,7 @@ function fromBase(num = "0", base = 10, nums) {
             return decimal;
         }
         else if (base === 10 && ((/^[0-9]+$/).test(num))) {
-            return num;
+            return +num;
         }
         else {
             //if num is taller than 10 or his its tall is 10 but not valid as decimal
