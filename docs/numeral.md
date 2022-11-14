@@ -65,7 +65,7 @@ return (is num valid)?string:false
 ```
 ### examples
 
-```c++
+```js
 toBinary(4)               //valid => 100
 toOctal(9)                //valid => 11
 toHex(255)                //valid => FF
@@ -139,7 +139,7 @@ return (is hex valid)?number:false
 ```
 
 ### examples
-```c++
+```js
 fromBinay("101")                //valid => 5
 fromOctal("11")                 //valid => 9
 fromHex("FA")                   //valid => 250
