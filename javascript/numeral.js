@@ -1,7 +1,7 @@
 "use strict";
 /* this module will use to convert between numeral system: [binary,octal,decimal,hexadecimal] */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fromBase = exports.fromHex = exports.fromOctal = exports.fromBinary = exports.toHex = exports.toOctal = exports.toBinary = exports.hexNums = void 0;
+exports.fromBase = exports.fromHex = exports.fromOctal = exports.fromBinary = exports.toBase = exports.toHex = exports.toOctal = exports.toBinary = exports.hexNums = void 0;
 const hexNums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
 exports.hexNums = hexNums;
 /* convert from decimal functions */
@@ -53,6 +53,31 @@ function toHex(decimal = 0) {
     return hex;
 }
 exports.toHex = toHex;
+function toBase(decimal, base, nums) {
+    //validate inputs
+    if (typeof decimal !== "number" || (nums && (nums.length < base || nums.join("").length !== nums.length)))
+        return false;
+    if (nums && nums.length > base)
+        nums = nums.slice(0, base);
+    if (decimal < 1)
+        return "0";
+    //remove fractions
+    if (decimal % 1 !== 0)
+        decimal = decimal - decimal % 1;
+    if (nums) {
+        let num = "";
+        for (let i = decimal; i > 0; i = (i - (i % base)) / base)
+            num = nums[i % base] + num;
+        return num;
+    }
+    else {
+        let num = "";
+        for (let i = decimal; i > 0; i = (i - (i % base)) / base)
+            num = (i % base) + num;
+        return num;
+    }
+}
+exports.toBase = toBase;
 /* convert to decimal function */
 function fromBinary(binary = "0") {
     // test if input is valid if not return false
@@ -100,7 +125,7 @@ function fromBase(num = "0", base = 10, nums) {
         //if nums is valid
         //formatting nums if it is taller than the base
         if (nums.length > base)
-            nums = nums.slice(0, base + 1);
+            nums = nums.slice(0, base);
         let regex = new RegExp(`^[${nums.join("")}]+$`);
         if (regex.test(num)) {
             //number is valid

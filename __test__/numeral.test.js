@@ -1,7 +1,7 @@
 
-const { hexNums ,toBinary,toOctal, toHex,fromBinary,fromOctal,fromHex,fromBase}=require("../javascript/numeral")
+const { hexNums ,toBinary,toOctal, toHex,fromBinary,fromOctal,fromHex,fromBase,toBase}=require("../javascript/numeral")
 
-
+let lettersDecimal=["O","A","B","C","D","E","F","G","H","I"]
 
 
 
@@ -144,6 +144,26 @@ describe('check toHexa', () => {
   
 })
 
+describe('test toBase', () => {
+  test.only('should retutn in the base format if it is valid', () => {
+    expect(toBase(2,2)).toBe("10")
+    expect(toBase(4,2)).toBe("100")
+    expect(toBase(5,2)).toBe("101")
+    expect(toBase(5,4)).toBe("11")
+    expect(toBase(5,8)).toBe("5")
+    expect(toBase(15,16,hexNums)).toBe("F")
+    expect(toBase(17,16,hexNums)).toBe("11")
+    expect(toBase(1,10,lettersDecimal)).toBe("A")
+    expect(toBase(123,10,lettersDecimal)).toBe("ABC")
+    expect(toBase(925,10,lettersDecimal)).toBe("IBE")
+    expect(toBase(1925,10,lettersDecimal)).toBe("AIBE")
+    expect(toBase(1023,8,lettersDecimal)).toBe("AGGG")
+    expect(toBase(1024,8,lettersDecimal)).toBe("BOOO")
+  })
+  
+})
+
+
 describe('check fromBinary', () => {
   test('should return 0 if there is no input', () => {
     expect(fromBinary()).toBe(0)
@@ -258,7 +278,7 @@ describe('check fromHex', () => {
   })
 })
 
-describe('test form base function', () => {
+describe('test formBase', () => {
   test('should return false if the base bigger than 10 and there is no nums or the nums is not valid', () => {
     expect(fromBase("1F",11)).toBe(false)
     expect(fromBase("1F",15)).toBe(false)
@@ -293,7 +313,6 @@ describe('test form base function', () => {
     expect(fromBase("F",16,hexNums)).toBe(15)
     expect(fromBase("101",2)).toBe(5)
     expect(fromBase("B",2,["A","B"])).toBe(1)
-    let lettersDecimal=["O","A","B","C","D","E","F","G","H","I"]
     expect(fromBase("A",10,lettersDecimal)).toBe(1)
     expect(fromBase("AA",10,lettersDecimal)).toBe(11)
     expect(fromBase("AB",10,lettersDecimal)).toBe(12)

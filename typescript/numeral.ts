@@ -3,6 +3,7 @@
 const hexNums:string[] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
 
 
+
 /* convert from decimal functions */
 function toBinary(decimal: number = 0): string | boolean {
   //some unusual inputs
@@ -52,6 +53,24 @@ function toHex(decimal: number = 0): string | boolean {
   return hex
 }
 
+function toBase(decimal:number,base:number,nums?:string[]){
+  //validate inputs
+  if(typeof decimal !== "number" ||(nums&&(nums.length<base||nums.join("").length!==nums.length))) return false
+
+  if(nums&&nums.length > base) nums=nums.slice(0,base)
+  if(decimal < 1) return "0"
+  //remove fractions
+  if(decimal%1 !== 0) decimal = decimal - decimal%1
+  
+  let num=""
+  if(nums){
+    for (let i = decimal; i > 0; i = (i - (i % base)) / base) num = nums[i%base]+ num
+  }else{
+    for (let i = decimal; i > 0; i = (i - (i % base)) / base) num = (i%base) + num
+  }
+  return num
+}
+
 /* convert to decimal function */
 
 function fromBinary(binary: string = "0"): number | boolean {
@@ -95,14 +114,14 @@ function fromHex(hex:string="0"){
   return decimal
 }
 
-function fromBase(num:string="0",base:number=10,nums:string[]){
+function fromBase(num:string="0",base:number=10,nums?:string[]){
   if(typeof num !== "string") return false
 
   if(nums && nums.length >= base && nums.join("").length === nums.length){
     //if nums is valid
 
     //formatting nums if it is taller than the base
-    if (nums.length> base) nums=nums.slice(0,base+1)
+    if (nums.length> base) nums=nums.slice(0,base)
     
     let regex=new RegExp(`^[${nums.join("")}]+$`)
     if(regex.test(num)){
@@ -114,7 +133,7 @@ function fromBase(num:string="0",base:number=10,nums:string[]){
       //number is invalid
       return false
     }
-    
+
   }else{
     //if nums is invalid
 
@@ -134,5 +153,4 @@ function fromBase(num:string="0",base:number=10,nums:string[]){
     }
   }
 }
-
-export {hexNums, toBinary, toOctal, toHex, fromBinary ,fromOctal , fromHex ,fromBase}
+export {hexNums, toBinary, toOctal, toHex, toBase , fromBinary ,fromOctal , fromHex ,fromBase}
