@@ -1,11 +1,8 @@
 {
   "name": "easy-units",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "a library to make use js easier",
   "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Alihaitham26/easy-units.git"
@@ -15,5 +12,5 @@
   "bugs": {
     "url": "https://github.com/Alihaitham26/easy-units/issues"
   },
-  "homepage": "https://github.com/Alihaitham26/easy-units#readme"
+  "homepage": "https://github.com/Alihaitham26/easy-units#readme",
 }
